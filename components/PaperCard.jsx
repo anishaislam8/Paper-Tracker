@@ -1,9 +1,18 @@
 import React from 'react'
 
-const PaperCard = ({ paper, tags }) => {
-    console.log(tags)
+import DeleteModal from '@components/DeleteModal';
+
+
+
+
+const PaperCard = ({ paper, tags, showModal, handleDelete, handleEdit, openModal, closeModal, onClickCard }) => {
+
     return (
-        <section className="d-flex justify-content-center my-3">
+        <section
+            className="d-flex justify-content-center my-3"
+            onClick={() => onClickCard(paper)}
+            style={{ cursor: 'pointer' }} 
+        >
             <div className="card shadow-lg border-0 rounded-3" style={{ width: "22rem" }}>
                 <div className="card-body">
                     {/* Paper Title */}
@@ -25,9 +34,12 @@ const PaperCard = ({ paper, tags }) => {
 
                     {/* Action Buttons */}
                     <div className="d-flex gap-2">
-                        <a href="#" className="btn btn-outline-primary btn-sm">Edit</a>
-                        <a href="#" className="btn btn-outline-danger btn-sm">Delete</a>
+                        <button className="btn btn-outline-primary btn-sm" onClick={() => handleEdit(paper)}>Edit</button>
+                        <button className="btn btn-outline-danger btn-sm" onClick={openModal}>Delete</button>
                     </div>
+
+                    {/* Delete Modal */}
+                    {showModal && <DeleteModal paper={paper} onClose={closeModal} handleDelete={handleDelete} />}
                 </div>
             </div>
         </section>

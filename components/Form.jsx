@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 const Form = ({ paper, setPaper, handleSubmit }) => {
     return (
-        <section className="container mt-5 p-4 border rounded shadow bg-light">
+        <section className="container mt-5 mb-5 p-4 border rounded shadow bg-light">
             <h2 className="text-center mb-4">Add a New Paper</h2>
 
             <form onSubmit={handleSubmit}>

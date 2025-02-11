@@ -4,9 +4,9 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { useSession } from 'next-auth/react'
 import PaperCard from '@components/PaperCard'
+import { useRouter } from 'next/navigation';
 
-
-const PaperCardList = ({ data }) => {
+const PaperCardList = ({ data, showModal, handleDelete, handleEdit, openModal, closeModal, onClickCard }) => {
   return (
     <div className='row'>
       {data.map((paper, index) => (
@@ -15,6 +15,13 @@ const PaperCardList = ({ data }) => {
             key={index}
             paper={paper}
             tags={paper.paperKeywords ? paper.paperKeywords.split(",").map(keyWord => keyWord.trim()) : []}
+            handleDelete={handleDelete}
+            handleEdit={handleEdit}
+            openModal={openModal}
+            closeModal={closeModal}
+            showModal={showModal}
+            onClickCard={onClickCard}
+
           />
         </div>
       ))}
@@ -25,7 +32,11 @@ const PaperCardList = ({ data }) => {
 
 const Feed = () => {
   const [papers, setPapers] = useState([]);
+  const [showModal, setShowModal] = useState(false);
   const { data: session } = useSession();
+  const router = useRouter();
+
+
 
   useEffect(() => {
     const fetchPapers = async () => {
@@ -40,6 +51,42 @@ const Feed = () => {
     }
     fetchPapers();
   }, []);
+
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
+  const openModal = () => {
+    setShowModal(true);
+  }
+
+  const handleEdit = (paper) => {
+    router.push(`/edit_paper?id=${paper._id}`)
+  };
+
+  const onClickCard = (paper) => {
+    console.log("Clicked on paper", paper);
+    router.push(`/view_paper?id=${paper._id}`)
+  }
+
+  const handleDelete = async (paper,) => {
+    try {
+      const response = await fetch(`/api/paper/${paper._id.toString()}`, {
+        method: "DELETE"
+      });
+      if (response.ok) {
+        console.log("Paper deleted successfully");
+        const updatedPapers = papers.filter(p => p._id !== paper._id);
+        setPapers(updatedPapers);
+
+        setShowModal(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
 
   return (
 
@@ -63,7 +110,15 @@ const Feed = () => {
         <h2 className='text-center my-4'>Papers in Your Library</h2>
 
 
-        <PaperCardList data={papers} />
+        <PaperCardList
+          data={papers}
+          handleDelete={handleDelete}
+          handleEdit={handleEdit}
+          openModal={openModal}
+          closeModal={closeModal}
+          showModal={showModal}
+          onClickCard={onClickCard}
+        />
       </div>
     </section>
   )

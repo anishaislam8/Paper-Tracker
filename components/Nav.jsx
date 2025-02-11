@@ -12,7 +12,7 @@ const Nav = () => {
     return (
         <>
         { session?.user && (
-            <nav className="navbar navbar-expand navbar-dark bg-dark" aria-label="Second navbar example">
+            <nav className="navbar navbar-expand navbar-dark bg-dark sticky-top" aria-label="Second navbar example">
                 <div className="container-fluid">
                     <a className="navbar-brand fw-bold" href="/">Paper Tracker</a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
