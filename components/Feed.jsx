@@ -1,12 +1,11 @@
 "use client";
 
-import React from 'react'
-import { useState, useEffect } from 'react'
-import { useSession } from 'next-auth/react'
-import PaperCard from '@components/PaperCard'
+import React, { useState, useEffect } from 'react';
+import { useSession } from 'next-auth/react';
+import PaperCard from '@components/PaperCard';
 import { useRouter } from 'next/navigation';
 
-const PaperCardList = ({ data, showModal, handleDelete, handleEdit, openModal, closeModal, onClickCard }) => {
+const PaperCardList = ({ data, handleDelete, handleEdit, openModal, closeModal, showModal, modalPaper, onClickCard }) => {
   return (
     <div className='row'>
       {data.map((paper, index) => (
@@ -19,77 +18,71 @@ const PaperCardList = ({ data, showModal, handleDelete, handleEdit, openModal, c
             handleEdit={handleEdit}
             openModal={openModal}
             closeModal={closeModal}
-            showModal={showModal}
+            showModal={showModal && modalPaper._id === paper._id}
             onClickCard={onClickCard}
-
           />
         </div>
       ))}
     </div>
-  )
-}
-
+  );
+};
 
 const Feed = () => {
   const [papers, setPapers] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [modalPaper, setModalPaper] = useState(null);
   const { data: session } = useSession();
   const router = useRouter();
-
-
 
   useEffect(() => {
     const fetchPapers = async () => {
       try {
         const response = await fetch(`/api/users/${session?.user.id}/papers`);
         const data = await response.json();
-
         setPapers(data);
       } catch (error) {
         console.log(error);
       }
+    };
+    if (session?.user.id) {
+      fetchPapers();
     }
-    fetchPapers();
-  }, []);
-
+  }, [session?.user.id]);
 
   const closeModal = () => {
     setShowModal(false);
+    setModalPaper(null);
   };
 
-  const openModal = () => {
+  const openModal = (paper) => {
     setShowModal(true);
-  }
+    setModalPaper(paper);
+  };
 
   const handleEdit = (paper) => {
-    router.push(`/edit_paper?id=${paper._id}`)
+    router.push(`/edit_paper?id=${paper._id}`);
   };
 
   const onClickCard = (paper) => {
-    console.log("Clicked on paper", paper);
-    router.push(`/view_paper?id=${paper._id}`)
-  }
+    router.push(`/view_paper?id=${paper._id}`);
+  };
 
-  const handleDelete = async (paper,) => {
+  const handleDelete = async (paper) => {
     try {
       const response = await fetch(`/api/paper/${paper._id.toString()}`, {
         method: "DELETE"
       });
       if (response.ok) {
-        console.log("Paper deleted successfully");
         const updatedPapers = papers.filter(p => p._id !== paper._id);
         setPapers(updatedPapers);
-
-        setShowModal(false);
+        closeModal();
       }
     } catch (error) {
       console.log(error);
     }
-  }
-
+  };
 
   return (
-
     <section className='container my-5'>
       <div className="row justify-content-center">
         <div className="col-md-6">
@@ -106,10 +99,7 @@ const Feed = () => {
       </div>
 
       <div className="row justify-content-center">
-
         <h2 className='text-center my-4'>Papers in Your Library</h2>
-
-
         <PaperCardList
           data={papers}
           handleDelete={handleDelete}
@@ -117,11 +107,12 @@ const Feed = () => {
           openModal={openModal}
           closeModal={closeModal}
           showModal={showModal}
+          modalPaper={modalPaper}
           onClickCard={onClickCard}
         />
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Feed
+export default Feed;

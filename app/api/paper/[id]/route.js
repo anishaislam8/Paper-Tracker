@@ -8,7 +8,9 @@ export const GET = async (req, { params }) => {
 
         await connectToDB();
 
-        const paper = await Paper.findById(params.id);
+        const { id } = await params;
+
+        const paper = await Paper.findById(id);
 
         if (!paper) {
             return new Response("Paper not found!", { status: 404 });
@@ -32,7 +34,9 @@ export const PATCH = async (req, { params }) => {
 
         await connectToDB();
 
-        const paper = await Paper.findById(params.id);
+        const { id } = await params;
+
+        const paper = await Paper.findById(id);
 
         if (!paper) {
             return new Response("Paper not found!", { status: 404 });
@@ -68,7 +72,8 @@ export const DELETE = async (req, { params }) => {
 
         await connectToDB();
 
-        await Paper.findByIdAndDelete(params.id);
+        const { id } = await params;
+        await Paper.findByIdAndDelete(id);
 
         return new Response("Paper deleted successfully!", { status: 200 });
 
