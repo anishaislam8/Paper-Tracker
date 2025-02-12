@@ -31,6 +31,8 @@ const Feed = () => {
   const [papers, setPapers] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [modalPaper, setModalPaper] = useState(null);
+  const [searchText, setSearchText] = useState("");
+  const [searchedPapers, setSearchedPapers] = useState([]);
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -82,34 +84,70 @@ const Feed = () => {
     }
   };
 
+  const handleSearch = async (e) => {
+    setSearchText(e.target.value);
+
+    if (e.target.value === "") {
+      setSearchedPapers([]);
+    } else {
+
+      const filteredPapers = papers.filter(paper => {
+        return (
+          paper.title.toLowerCase().includes(e.target.value.toLowerCase()) ||
+          paper.authors.toLowerCase().includes(e.target.value.toLowerCase()) ||
+          paper.paperKeywords.toLowerCase().includes(e.target.value.toLowerCase())
+        );
+      });
+
+      setSearchedPapers(filteredPapers);
+    }
+
+  };
+
   return (
     <section className='container my-5'>
       <div className="row justify-content-center">
         <div className="col-md-6">
-          <div className="input-group input-group-lg shadow-sm">
+          <div className="input-group input-group-lg shadow-sm bg-white rounded">
             <input
               type="text"
               className="form-control border-primary"
-              placeholder="Search papers..."
+              placeholder="Search papers by title, author, or keywords..."
               aria-label="Search"
+              value={searchText}
+              onChange={handleSearch}
+              style={{ fontSize: "1rem" }}
             />
-            <button className="btn btn-primary" type="button">Search</button>
           </div>
         </div>
       </div>
 
       <div className="row justify-content-center">
         <h2 className='text-center my-4'>Papers in Your Library</h2>
-        <PaperCardList
-          data={papers}
-          handleDelete={handleDelete}
-          handleEdit={handleEdit}
-          openModal={openModal}
-          closeModal={closeModal}
-          showModal={showModal}
-          modalPaper={modalPaper}
-          onClickCard={onClickCard}
-        />
+        {searchText ? (
+          <PaperCardList
+            data={searchedPapers}
+            handleDelete={handleDelete}
+            handleEdit={handleEdit}
+            openModal={openModal}
+            closeModal={closeModal}
+            showModal={showModal}
+            modalPaper={modalPaper}
+            onClickCard={onClickCard}
+          />
+        ) : (
+          <PaperCardList
+            data={papers}
+            handleDelete={handleDelete}
+            handleEdit={handleEdit}
+            openModal={openModal}
+            closeModal={closeModal}
+            showModal={showModal}
+            modalPaper={modalPaper}
+            onClickCard={onClickCard}
+          />
+        )}
+
       </div>
     </section>
   );
