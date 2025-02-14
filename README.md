@@ -16,18 +16,18 @@ Stay on top of your academic reading with a streamlined platform to upload, summ
     - Relevant tags
 - Feature 2: Search & Filter Papers
     - Search by: Title, Author, Tags
-    - Filter by: Publish date, Conference/journal, Author
+    - Filter by: Publish date, Conference/journal, Author (Pending)
 - Feature 3: View/Edit/Delete Papers
     - View paper details
     - Edit paper details
     - Delete paper
-- Feature 4: Show stats
+- Feature 4: Show stats (Pending)
     - Number of papers by year
     - Number of papers by conference/journal
     - Number of papers by author
     - Number of papers by tag
 
-This project is deployed on Vercel at [https://www.google.com/](https://www.google.com/) and uses the following technologies:
+This project is going to be deployed on Vercel at "" and uses the following technologies:
 - Next.js
 - React
 - Bootstrap
