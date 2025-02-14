@@ -26,7 +26,7 @@ Stay on top of your academic reading with a streamlined platform to upload, summ
     - Number of papers by author
     - Number of papers by tag
 
-This project is going to be deployed on Vercel at "" and uses the following technologies:
+This project is going to be deployed on Vercel at [https://paper-tracker-omega.vercel.app/](https://paper-tracker-omega.vercel.app/) and uses the following technologies:
 - Next.js
 - React
 - Bootstrap
