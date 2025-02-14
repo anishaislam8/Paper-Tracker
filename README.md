@@ -16,7 +16,7 @@ Stay on top of your academic reading with a streamlined platform to upload, summ
     - Relevant tags
 - Feature 2: Search & Filter Papers
     - Search by: Title, Author, Tags
-    - Filter by: Publish date, Conference/journal, Author (Pending)
+    - Filter by: Tags, Conference/journal, Author
 - Feature 3: View/Edit/Delete Papers
     - View paper details
     - Edit paper details

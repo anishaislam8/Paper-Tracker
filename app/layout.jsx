@@ -1,4 +1,7 @@
+"use client";
+
 import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '@styles/globals.css';
 import Nav from '@components/Nav';
 

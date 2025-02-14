@@ -1,2 +1,26 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
 @import 'bootstrap/dist/js/bootstrap.bundle.min';
+
+
+.sidenav {
+    position: fixed;
+    top: 50;
+    right: -300px;
+    width: 250px;
+    height: 100vh;
+    background: #212529;
+    color: white;
+    transition: right 0.3s ease-in-out;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  .sidenav-open {
+    right: 0;
+  }
+  .sidenav-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
