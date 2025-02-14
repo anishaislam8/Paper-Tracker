@@ -314,7 +314,7 @@ const Feed = () => {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                Select Conferences
+                Select Venues
               </button>
               <ul
                 className="dropdown-menu"
