@@ -27,7 +27,7 @@ const Nav = () => {
                                 </li>
 
                                 <li className="nav-item">
-                                    <Link href="/statistics" className="nav-link">View Statistics</Link>
+                                    <Link href="/statistics" className="nav-link">Dashboard</Link>
                                 </li>
 
 

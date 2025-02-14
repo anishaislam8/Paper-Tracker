@@ -21,8 +21,7 @@ Stay on top of your academic reading with a streamlined platform to upload, summ
     - View paper details
     - Edit paper details
     - Delete paper
-- Feature 4: Show stats (Pending)
-    - Number of papers by year
+- Feature 4: Show stats
     - Number of papers by conference/journal
     - Number of papers by author
     - Number of papers by tag
